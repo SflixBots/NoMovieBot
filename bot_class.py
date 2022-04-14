@@ -21,3 +21,16 @@ class Sflix(Client):
            workers=WORKERS,
            plugins={"root": "Bot"},
         )
+
+    async def start(self):
+        await super().start()
+        me = await self.get_me()
+        self.username = '@' + me.username
+        print(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
+
+    async def stop(self, *args):
+        await super().stop()
+        print("Bot stopped. Bye.")
+
+bot = Sflix()
+bot.run()
