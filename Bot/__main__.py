@@ -23,6 +23,7 @@ async def movie(client: Sflix, message: Message):
             ],[
             InlineKeyboardButton("Ignore", callback_data="movie.ignore")
         ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
         await message.reply_text(
             text = script.MOVIE_TXT.format(message.from_user.mention),
             reply_markup = reply_markup,
