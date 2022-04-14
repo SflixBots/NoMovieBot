@@ -24,6 +24,7 @@ async def movie(client: Sflix, message: Message):
             InlineKeyboardButton("Ignore ✨", callback_data="movie.ignore")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
+        await message.delete()
         await message.reply_text(
             text = script.MOVIE_TXT.format(reply_to.from_user.mention),
             reply_markup = reply_markup,
