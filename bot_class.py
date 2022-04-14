@@ -10,7 +10,7 @@ BOT_TOKEN = Config.BOT_TOKEN
 WORKERS = Config.WORKERS
 
 class Sflix(Client):
-    #Starts the Pyrogram Client on the Bot Token when we do 'python3 run.py'
+    #Starts the Pyrogram Client on the Bot Token when we do 'python3 bot_class.py'
 
     def __init__(self):
         super().__init__(
