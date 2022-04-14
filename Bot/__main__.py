@@ -5,3 +5,7 @@ from pyrogram.types import Message
 @Sflix.on_message(filters.command("start") | filters. private)
 async def start(client: Sflix, message: Message):
     await message.reply_text("Hi")
+
+@Sflix.on_message(filters.regex("#movie") | filters.group)
+async def movie(client: Sflix, message: Message):
+    
