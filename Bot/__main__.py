@@ -1,6 +1,11 @@
 from Bot import Sflix
 from pyrogram import filters
-from pyrogram.types import Message
+from pyrogram.types import (
+    Message,
+    CallbackQuery,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup
+)
 
 @Sflix.on_message(filters.command("start") | filters.private)
 async def start(client: Sflix, message: Message):
@@ -11,4 +16,11 @@ async def movie(client: Sflix, message: Message):
     reply_to = message.reply_to_message
     if reply_to:
         reply_id = reply_to.message_id
-        await message.reply_text()
+        buttons = [[
+            InlineKeyboardButton("", )
+        ]]
+        await message.reply_text(
+            text = script.MOVIE_TXT,
+            reply_markup = reply_markup,
+            reply_to_message_id=reply_id
+        )
