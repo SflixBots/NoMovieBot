@@ -1,4 +1,4 @@
-from Bot import Sflix
+from Bot import Sflix, script
 from pyrogram import filters
 from pyrogram.types import (
     Message,
