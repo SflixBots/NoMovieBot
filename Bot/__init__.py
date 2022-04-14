@@ -11,9 +11,9 @@ class Config:
     WORKERS = int(100)
 
 class script:
-    MOVIE_TXT = "Hello {}
+    MOVIE_TXT = """Hello {}
 Looks like you are asking a movie
 But this is not a movie group! 👀
-Now you can leave from here or admins will kick you"
+Now you can leave from here or admins will kick you."""
 
 Sflix = Client
