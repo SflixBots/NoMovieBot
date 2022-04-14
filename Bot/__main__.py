@@ -17,7 +17,11 @@ async def movie(client: Sflix, message: Message):
     if reply_to:
         reply_id = reply_to.message_id
         buttons = [[
-            InlineKeyboardButton("", )
+            InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
+            ],[
+            InlineKeyboardButton("Kick 🗑️", callback_data="movie.kick")
+            ],[
+            InlineKeyboardButton("Ignore", callback_data="movie.ignore")
         ]]
         await message.reply_text(
             text = script.MOVIE_TXT,
