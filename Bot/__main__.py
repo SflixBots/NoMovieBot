@@ -8,4 +8,7 @@ async def start(client: Sflix, message: Message):
 
 @Sflix.on_message(filters.regex("#movie") | filters.group)
 async def movie(client: Sflix, message: Message):
-    
+    reply_to = message.reply_to_message
+    if reply_to:
+        reply_id = reply_to.message_id
+        await message.reply_text()
