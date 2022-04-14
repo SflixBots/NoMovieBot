@@ -1,4 +1,5 @@
 from os import environ
+from pyrogram import Client
 
 class Config:
     #Config class for variables.
@@ -8,3 +9,5 @@ class Config:
     API_HASH = environ['API_HASH']
     BOT_TOKEN = environ['BOT_TOKEN']
     WORKERS = int(100)
+
+Sflix = Client
