@@ -29,4 +29,4 @@ async def movie(client: Sflix, message: Message):
             reply_to_message_id=reply_id
         )
     else:
-        message.reply("Reply")
+        await message.reply("Reply")
