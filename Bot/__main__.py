@@ -11,7 +11,7 @@ from pyrogram.types import (
 async def start(client: Sflix, message: Message):
     await message.reply_text("Hi")
 
-@Sflix.on_message(filters.regex("#movie") | filters.group)
+@Sflix.on_message(filters.command("movie") | filters.group)
 async def movie(client: Sflix, message: Message):
     reply_to = message.reply_to_message
     if reply_to:
@@ -25,7 +25,7 @@ async def movie(client: Sflix, message: Message):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await message.reply_text(
-            text = script.MOVIE_TXT.format(message.from_user.mention),
+            text = script.MOVIE_TXT.format(reply_to.from_user.mention),
             reply_markup = reply_markup,
             reply_to_message_id = reply_id
         )
