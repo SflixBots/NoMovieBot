@@ -28,3 +28,5 @@ async def movie(client: Sflix, message: Message):
             reply_markup = reply_markup,
             reply_to_message_id=reply_id
         )
+    else:
+        message.reply("Reply")
