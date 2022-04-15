@@ -76,7 +76,7 @@ async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
             await query.answer("Nice Try :)", show_alert=True)
             return
         try:
-            await client.kick_chat_member(chat_id, user_id, until_date=int(time() + 45))
+            await query.message.kick_chat_member(user_id, until_date=int(time() + 45))
             await query.message.edit_text(f"**User:** {user_name} **has kicked from this group.**")
             await sleep(25)
             await query.message.delete()
