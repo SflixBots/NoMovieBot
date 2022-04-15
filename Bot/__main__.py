@@ -26,9 +26,9 @@ async def movie(client: Sflix, message: Message):
         user_id = reply_to.from_user.id
         reply_id = reply_to.message_id
         buttons = [[
-            InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
+            InlineKeyboardButton("Leave 🧑‍🦯", callback_data=f"movie.leave.{user_id}")
             ],[
-            InlineKeyboardButton("Kick 🗑️", callback_data="movie.kick")
+            InlineKeyboardButton("Kick 🗑️", callback_data=f"movie.kick.{user_id}")
             ],[
             InlineKeyboardButton("Ignore ✨", callback_data="movie.ignore")
         ]]
@@ -46,7 +46,7 @@ async def movie(client: Sflix, message: Message):
 async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
     args = query.data.split(".")
     action = args[1]
-    user_id = query.message.reply_to_message.from_user.id
+    user_id = int(args[2])
     chat_id = int(query.message.chat.id)
     user = await client.get_users(user_id)
     user_name = user.username
@@ -74,7 +74,7 @@ async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
         admin_check = await client.get_chat_member(chat_id, user_id)
         if ((admin_check.status == "administrator") or (admin_check.status == "creator")):
             try:
-                await client.kick_chat_member(chat_id, user_id)
+                await client.kick_chat_member(chat_id, user_id, until_date=int(time() + 45))
                 await query.message.edit_text(f"**User:** {user_name} **has kicked from this group.**")
                 await sleep(25)
                 await query.message.delete()
