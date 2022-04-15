@@ -1,3 +1,5 @@
+from time import time
+
 from Bot import Sflix, script
 from pyrogram import filters
 from pyrogram.types import (
