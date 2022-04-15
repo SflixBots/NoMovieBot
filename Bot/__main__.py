@@ -2,7 +2,6 @@ from time import time
 from asyncio import sleep
 
 from Bot import Sflix, script
-from Bot.utils import get_poster
 
 from pyrogram import filters
 from pyrogram.types import (
@@ -46,23 +45,18 @@ async def movie(client: Sflix, message: Message):
 @Sflix.on_message(filters.group & filters.text & ~filters.edited & filters.incoming)
 async def auto_detect_movie(client: Sflix, message: Message):
     if message.text.startswith("#"): return
-    imdb = await get_poster(message.text)
-    if imdb['poster']:
-        print(f"{imdb['poster']}")
-        buttons = [[
-            InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
-            ],[
-            InlineKeyboardButton("Kick 🗑️", callback_data="movie.kick")
-            ],[
-            InlineKeyboardButton("Ignore ✨", callback_data="movie.ignore")
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply_text(
-            text = script.MOVIE_TXT.format(message.from_user.mention),
-            reply_markup = reply_markup
-        )
-    else:
-        await message.reply("Nope")
+    buttons = [[
+        InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
+        ],[
+        InlineKeyboardButton("Kick 🗑️", callback_data="movie.kick")
+        ],[
+        InlineKeyboardButton("Ignore ✨", callback_data="movie.ignore")
+    ]]
+    reply_markup = InlineKeyboardMarkup(buttons)
+    await message.reply_text(
+        text = script.MOVIE_TXT.format(message.from_user.mention),
+        reply_markup = reply_markup
+    )
 
 @Sflix.on_callback_query(filters.regex("^movie."))
 async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
