@@ -56,7 +56,7 @@ async def auto_detect_movie(client: Sflix, message: Message):
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await message.reply_text(
-        text = script.MOVIE_TXT.format(message.reply_to_message.from_user.mention),
+        text = script.MOVIE_TXT.format(message.from_user.mention),
         reply_markup = reply_markup
     )
 
