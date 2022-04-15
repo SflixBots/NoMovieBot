@@ -1,4 +1,5 @@
 from imdb import IMDb
+import re
 
 imdb = IMDb()
 LONG_IMDB_DESCRIPTION = False
