@@ -55,8 +55,7 @@ async def auto_detect_movie(client: Sflix, message: Message):
     reply_markup = InlineKeyboardMarkup(buttons)
     await message.reply_text(
         text = script.MOVIE_TXT.format(message.reply_to_message.from_user.mention),
-        reply_markup = reply_markup,
-        reply_to_message_id = reply_id
+        reply_markup = reply_markup
     )
 
 @Sflix.on_callback_query(filters.regex("^movie."))
