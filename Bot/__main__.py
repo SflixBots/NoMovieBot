@@ -73,10 +73,10 @@ async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
             await query.answer("Okda", show_alert=True)
 
     if action == "kick":
-        admin_check = await client.get_chat_member(chat_id, user_id)
-        if not ((admin_check.status == "administrator") or (admin_check.status == "creator")):
-            await query.answer("Nice Try :)", show_alert=True)
-            return
+        #admin_check = await client.get_chat_member(chat_id, user_id)
+        #if not ((admin_check.status == "administrator") or (admin_check.status == "creator")):
+            #await query.answer("Nice Try :)", show_alert=True)
+            #return
         try:
             await query.chat.ban_member(user_id, until_date=int(time() + 45))
             await sleep(3)
