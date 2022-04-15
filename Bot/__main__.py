@@ -42,6 +42,8 @@ async def movie(client: Sflix, message: Message):
     else:
         await message.reply("Reply")
 
+@Sflix.on_message(filters.group & filters.text & ~filters.edited & filters.incoming)
+
 @Sflix.on_callback_query(filters.regex("^movie."))
 async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
     args = query.data.split(".")
