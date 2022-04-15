@@ -54,11 +54,8 @@ async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
 
     if action == "leave":
         clicked = query.from_user.id
-        try:
-            typed = query.message.reply_to_message.from_user.id
-        except:
-            typed = query.from_user.id
-            pass
+        typed = user_id
+
         if int(clicked) == typed:
             try:
                 await client.kick_chat_member(chat_id, user_id, until_date=int(time() + 45))
