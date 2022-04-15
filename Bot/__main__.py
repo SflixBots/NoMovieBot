@@ -31,7 +31,7 @@ async def movie(client: Sflix, message: Message):
             ],[
             InlineKeyboardButton("Kick 🗑️", callback_data=f"movie.kick.{user_id}")
             ],[
-            InlineKeyboardButton("Ignore ✨", callback_data=f"movie.ignore.{user_id}")
+            InlineKeyboardButton("Ignore ✨", callback_data=f"movie.ignore")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await message.delete()
@@ -71,5 +71,8 @@ async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
         else:
             await query.answer("Okda", show_alert=True)
 
+    if action == "ignore":
+       await query.message.delete()
+       await query.message.reply_to_message.delete()
     await query.answer()
     return
