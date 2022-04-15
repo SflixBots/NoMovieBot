@@ -43,6 +43,21 @@ async def movie(client: Sflix, message: Message):
         await message.reply("Reply")
 
 @Sflix.on_message(filters.group & filters.text & ~filters.edited & filters.incoming)
+async def auto_detect_movie(client: Sflix, message: Message):
+    if message.text.startswith("#"): return
+    m = message.reply_to_message
+    buttons = [[
+        InlineKeyboardButton("Leave 🧑‍🦯", callback_data=f"movie.leave.{user_id}")
+        ],[
+        InlineKeyboardButton("Kick 🗑️", callback_data=f"movie.kick.{user_id}")
+        ],[
+        InlineKeyboardButton("Ignore ✨", callback_data="movie.ignore")
+    ]]
+    reply_markup = InlineKeyboardMarkup(buttons)
+    await m.reply_text(
+        text = script.MOVIE_TXT.format(reply_to.from_user.mention),
+        reply_markup = reply_markup
+    )
 
 @Sflix.on_callback_query(filters.regex("^movie."))
 async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
