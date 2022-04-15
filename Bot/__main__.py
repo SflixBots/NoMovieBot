@@ -1,8 +1,8 @@
 from time import time
 from asyncio import sleep
 
-from utils import get_poster
 from Bot import Sflix, script
+from Bot.utils import get_poster
 
 from pyrogram import filters
 from pyrogram.types import (
