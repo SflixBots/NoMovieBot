@@ -2,7 +2,7 @@ from time import time
 from asyncio import sleep
 
 from Bot import Sflix, script
-from Bot.utils import get_poster
+from Bot.utils import get_title
 
 from pyrogram import filters
 from pyrogram.types import (
@@ -46,7 +46,7 @@ async def movie(client: Sflix, message: Message):
 @Sflix.on_message(filters.group & filters.text & ~filters.edited & filters.incoming)
 async def auto_detect_movie(client: Sflix, message: Message):
     if message.text.startswith("#"): return
-    imdb = await get_poster(message.text)
+    imdb = await get_title(message.text)
     if imdb.get('title'):
         buttons = [[
             InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
