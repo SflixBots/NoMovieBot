@@ -23,7 +23,6 @@ async def movie(client: Sflix, message: Message):
         if ((admin_check.status == "administrator") or (admin_check.status == "creator")):
             await message.reply_text("**This user is admin in this chat.**")
             return
-
         user_id = reply_to.from_user.id
         reply_id = reply_to.message_id
         buttons = [[
