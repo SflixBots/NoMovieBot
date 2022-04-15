@@ -1,7 +1,8 @@
 from time import time
+from imdb import IMDb
 from asyncio import sleep
-
 from Bot import Sflix, script
+
 from pyrogram import filters
 from pyrogram.types import (
     Message,
@@ -10,6 +11,8 @@ from pyrogram.types import (
     InlineKeyboardMarkup
 )
 from pyrogram.errors import RPCError
+
+imdb = IMDb()
 
 @Sflix.on_message(filters.command("start") & filters.private)
 async def start(client: Sflix, message: Message):
