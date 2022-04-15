@@ -46,9 +46,8 @@ async def movie(client: Sflix, message: Message):
 @Sflix.on_message(filters.group & filters.text & ~filters.edited & filters.incoming)
 async def auto_detect_movie(client: Sflix, message: Message):
     if message.text.startswith("#"): return
-    text = message.text.replace(" ", "+")
-    title = await get_title(text)
-    try:
+    imdb = await get_title(message.text)
+    if imdb.get('poster'):
         buttons = [[
             InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
             ],[
@@ -61,7 +60,7 @@ async def auto_detect_movie(client: Sflix, message: Message):
             text = script.MOVIE_TXT.format(message.from_user.mention),
             reply_markup = reply_markup
         )
-    except ValueError:
+    else:
         await message.reply("Nope")
 
 @Sflix.on_callback_query(filters.regex("^movie."))
