@@ -22,13 +22,14 @@ async def movie(client: Sflix, message: Message):
             await message.reply_text("**This user is admin in this chat.**")
             return
 
+        user_id = reply_to.from_user.id
         reply_id = reply_to.message_id
         buttons = [[
-            InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
+            InlineKeyboardButton("Leave 🧑‍🦯", callback_data=f"movie.leave.{user_id}")
             ],[
-            InlineKeyboardButton("Kick 🗑️", callback_data="movie.kick")
+            InlineKeyboardButton("Kick 🗑️", callback_data=f"movie.kick.{user_id}")
             ],[
-            InlineKeyboardButton("Ignore ✨", callback_data="movie.ignore")
+            InlineKeyboardButton("Ignore ✨", callback_data=f"movie.ignore.{user_id}")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await message.delete()
@@ -39,3 +40,10 @@ async def movie(client: Sflix, message: Message):
         )
     else:
         await message.reply("Reply")
+
+@Sflix.on_callback_query(filters.regex("^movie."))
+async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
+    args = query.data.split(".")
+    action = args[1]
+    user_id = int(args[2])
+    chat_id = int(query.message.chat.id)
