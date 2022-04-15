@@ -47,7 +47,8 @@ async def movie(client: Sflix, message: Message):
 @Sflix.on_message(filters.group & filters.text & ~filters.edited & filters.incoming)
 async def auto_detect_movie(client: Sflix, message: Message):
     if message.text.startswith("#"): return
-    query = (query.strip()).lower()
+    text = message.text
+    query = (text.strip()).lower()
     title = query
     movieid = imdb.search_movie(title.lower(), results=10)
     movie = imdb.get_movie(movieid)
