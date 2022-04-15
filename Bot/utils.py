@@ -90,6 +90,6 @@ def list_to_str(k):
         return "N/A"
     elif len(k) == 1:
         return str(k[0])
-    elif :
+    else:
         k = k[:int(3)]
         return ' '.join(f'{elem}, ' for elem in k)
