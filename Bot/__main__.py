@@ -88,8 +88,8 @@ async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
             await query.message.delete()
 
     elif action == "ignore":
+       if not ((admin_check.status == "administrator") or (admin_check.status == "creator")):
+           await query.answer("Nice Try :)", show_alert=True)
+           return
        await query.message.delete()
        await query.message.reply_to_message.delete()
-
-    else:
-        return
