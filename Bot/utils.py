@@ -1,18 +1,16 @@
-from imdb import IMDb
+import requests
 
-imdb = IMDb()
+from Bot import Config
+
+API_KEY = Config.OMDB_KEY
+
+user = {"User-Agent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"}
 
 async def get_title(query):
-    query = (query.strip()).lower()
-    title = query
-    movieid = imdb.search_movie(title.lower(), results=10)
-    if not movieid:
-        return None
-    filtered = movieid
-    if not movieid:
-        movieid = filtered
-    movieid = movieid[0].movieID
-
-    movie = imdb.get_movie(movieid)
-
-    return {'title': movie.get('title')}
+    try:
+        url = f'http://www.omdbapi.com/?apikey={API_KEY}&t={query}'
+        resp = requests.get(url, headers=user).json()
+        title = resp['Title']
+    except Exception as e:
+        print(e)
+    return title
