@@ -1,8 +1,6 @@
 from imdb import IMDb
-import re
 
 imdb = IMDb()
-LONG_IMDB_DESCRIPTION = False
 
 async def get_title(query):
     query = (query.strip()).lower()
@@ -11,7 +9,6 @@ async def get_title(query):
     if not movieid:
         return None
     filtered = movieid
-    movieid=list(filter(lambda k: k.get('kind') in ['movie', 'tv series'], filtered))
     if not movieid:
         movieid = filtered
     movieid = movieid[0].movieID
