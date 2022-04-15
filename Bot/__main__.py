@@ -23,12 +23,11 @@ async def movie(client: Sflix, message: Message):
         if ((admin_check.status == "administrator") or (admin_check.status == "creator")):
             await message.reply_text("**This user is admin in this chat.**")
             return
-        user_id = reply_to.from_user.id
         reply_id = reply_to.message_id
         buttons = [[
-            InlineKeyboardButton("Leave 🧑‍🦯", callback_data=f"movie.leave.{user_id}")
+            InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
             ],[
-            InlineKeyboardButton("Kick 🗑️", callback_data=f"movie.kick.{user_id}")
+            InlineKeyboardButton("Kick 🗑️", callback_data="movie.kick")
             ],[
             InlineKeyboardButton("Ignore ✨", callback_data="movie.ignore")
         ]]
@@ -47,15 +46,15 @@ async def auto_detect_movie(client: Sflix, message: Message):
     if message.text.startswith("#"): return
     m = message.reply_to_message
     buttons = [[
-        InlineKeyboardButton("Leave 🧑‍🦯", callback_data=f"movie.leave.{user_id}")
+        InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
         ],[
-        InlineKeyboardButton("Kick 🗑️", callback_data=f"movie.kick.{user_id}")
+        InlineKeyboardButton("Kick 🗑️", callback_data="movie.kick")
         ],[
         InlineKeyboardButton("Ignore ✨", callback_data="movie.ignore")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await m.reply_text(
-        text = script.MOVIE_TXT.format(reply_to.from_user.mention),
+        text = script.MOVIE_TXT.format(m.from_user.mention),
         reply_markup = reply_markup
     )
 
