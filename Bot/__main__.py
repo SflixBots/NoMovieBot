@@ -47,11 +47,8 @@ async def movie(client: Sflix, message: Message):
 @Sflix.on_message(filters.group & filters.text & ~filters.edited & filters.incoming)
 async def auto_detect_movie(client: Sflix, message: Message):
     if message.text.startswith("#"): return
-    text = message.text
-    query = (text.strip()).lower()
-    movieid = imdb.search_movie(query.lower(), results=10)
-    movie = imdb.get_movie(query)
-    if movie.get('title'):
+    
+    if :
         buttons = [[
             InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
             ],[
