@@ -49,8 +49,7 @@ async def auto_detect_movie(client: Sflix, message: Message):
     if message.text.startswith("#"): return
     text = message.text
     query = (text.strip()).lower()
-    title = query
-    movieid = imdb.search_movie(title.lower(), results=10)
+    movieid = query
     movie = imdb.get_movie(movieid)
     if movie.get('title'):
         buttons = [[
