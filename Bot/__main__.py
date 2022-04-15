@@ -66,7 +66,7 @@ async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
                 await sleep(25)
                 await fail.delete()
         else:
-            await query.answer("You are not allowed to use this!", show_alert=True)
+            await query.answer("Okda", show_alert=True)
 
     await query.answer()
     return
