@@ -5,6 +5,8 @@ from typing import List
 
 imdb = IMDb()
 
+LONG_IMDB_DESCRIPTION = Flase
+
 async def get_poster(query, bulk=False, id=False, file=None):
     if not id:
         # https://t.me/GetTGLink/4183
