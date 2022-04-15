@@ -47,18 +47,25 @@ async def movie(client: Sflix, message: Message):
 @Sflix.on_message(filters.group & filters.text & ~filters.edited & filters.incoming)
 async def auto_detect_movie(client: Sflix, message: Message):
     if message.text.startswith("#"): return
-    buttons = [[
-        InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
-        ],[
-        InlineKeyboardButton("Kick 🗑️", callback_data="movie.kick")
-        ],[
-        InlineKeyboardButton("Ignore ✨", callback_data="movie.ignore")
-    ]]
-    reply_markup = InlineKeyboardMarkup(buttons)
-    await message.reply_text(
-        text = script.MOVIE_TXT.format(message.from_user.mention),
-        reply_markup = reply_markup
-    )
+    query = (query.strip()).lower()
+    title = query
+    movieid = imdb.search_movie(title.lower(), results=10)
+    movie = imdb.get_movie(movieid)
+    if movie.get('title'):
+        buttons = [[
+            InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
+            ],[
+            InlineKeyboardButton("Kick 🗑️", callback_data="movie.kick")
+            ],[
+            InlineKeyboardButton("Ignore ✨", callback_data="movie.ignore")
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await message.reply_text(
+            text = script.MOVIE_TXT.format(message.from_user.mention),
+            reply_markup = reply_markup
+        )
+    else:
+        message.reply("Nope")
 
 @Sflix.on_callback_query(filters.regex("^movie."))
 async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
