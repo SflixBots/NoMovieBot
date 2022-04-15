@@ -72,21 +72,20 @@ async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
 
     if action == "kick":
         admin_check = await client.get_chat_member(chat_id, user_id)
-        if ((admin_check.status == "administrator") or (admin_check.status == "creator")):
-            try:
-                await client.kick_chat_member(chat_id, user_id, until_date=int(time() + 45))
-                await query.message.edit_text(f"**User:** {user_name} **has kicked from this group.**")
-                await sleep(25)
-                await query.message.delete()
-            except RPCError as err:
-                await query.message.edit_text(
-                    f"🛑 Failed to Kick\n<b>Error:</b>\n</code>{err}</code>"
-                )
-                await sleep(25)
-                await query.message.delete()
-        else:
+        if not ((admin_check.status == "administrator") or (admin_check.status == "creator")):
             await query.answer("Nice Try :)", show_alert=True)
             return
+        try:
+            await client.kick_chat_member(chat_id, user_id, until_date=int(time() + 45))
+            await query.message.edit_text(f"**User:** {user_name} **has kicked from this group.**")
+            await sleep(25)
+            await query.message.delete()
+        except RPCError as err:
+            await query.message.edit_text(
+                f"🛑 Failed to Kick\n<b>Error:</b>\n</code>{err}</code>"
+            )
+            await sleep(25)
+            await query.message.delete()
 
     if action == "ignore":
        if not ((admin_check.status == "administrator") or (admin_check.status == "creator")):
