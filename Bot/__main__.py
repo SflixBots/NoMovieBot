@@ -59,12 +59,15 @@ async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
         if int(clicked) == typed:
             try:
                 await client.kick_chat_member(chat_id, user_id, until_date=int(time() + 45))
+                await query.message.edit_text(f"User: {user_name} has left this group")
+                await sleep(25)
+                await query.message.delete()
             except RPCError as err:
-                fail = await query.message.edit_text(
+                await query.message.edit_text(
                     f"🛑 Failed to Kick\n<b>Error:</b>\n</code>{err}</code>"
                 )
                 await sleep(25)
-                await fail.delete()
+                await query.message.delete()
         else:
             await query.answer("Okda", show_alert=True)
 
