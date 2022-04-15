@@ -59,7 +59,7 @@ async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
         if int(clicked) == typed:
             try:
                 await client.kick_chat_member(chat_id, user_id, until_date=int(time() + 45))
-                await query.message.edit_text(f"User: {user_name} has left this group.")
+                await query.message.edit_text(f"**User:** {user_name} **has left this group.**")
                 await sleep(25)
                 await query.message.delete()
             except RPCError as err:
@@ -77,10 +77,13 @@ async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
             await query.answer("Nice Try :)")
             return
         await client.kick_chat_member(chat_id, user_id, until_date=int(time() + 45))
-        await query.message.edit_text(f"User: {user_name} has kicked from this group.")
+        await query.message.edit_text(f"**User:** {user_name} **has kicked from this group.**")
         await sleep(25)
         await query.message.delete()
 
     elif action == "ignore":
        await query.message.delete()
        await query.message.reply_to_message.delete()
+
+    else:
+        return
