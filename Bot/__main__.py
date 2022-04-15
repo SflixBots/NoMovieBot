@@ -46,7 +46,7 @@ async def movie(client: Sflix, message: Message):
 async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
     args = query.data.split(".")
     action = args[1]
-    user_id = int(args[2])
+    user_id = query.message.reply_to_message.from_user.id
     chat_id = int(query.message.chat.id)
     user = await client.get_users(user_id)
     user_name = user.username
