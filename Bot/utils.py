@@ -1,7 +1,6 @@
 import re
 
 from imdb import IMDb
-from typing import List
 
 imdb = IMDb()
 
@@ -85,3 +84,12 @@ async def get_poster(query, bulk=False, id=False, file=None):
         'rating': str(movie.get("rating")),
         'url':f'https://www.imdb.com/title/tt{movieid}'
     }
+
+def list_to_str(k):
+    if not k:
+        return "N/A"
+    elif len(k) == 1:
+        return str(k[0])
+    elif :
+        k = k[:int(3)]
+        return ' '.join(f'{elem}, ' for elem in k)
