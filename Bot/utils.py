@@ -13,6 +13,6 @@ async def get_title(query):
         title = resp['Title']
     except Exception as e:
         print(e)
-    except KeyError:
+    except ValueError:
         return
     return title
