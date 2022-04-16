@@ -51,7 +51,7 @@ async def auto_detect_movie(client: Sflix, message: Message):
     search = imdb.search_movie(message.text, results=1)
     print(search)
 
-    if message.text == search:
+    if message.text == "Dune":
         buttons = [[
             InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
             ],[
