@@ -114,6 +114,7 @@ async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
             await query.message.delete()
 
     if action == "ignore":
+       admin_check = await client.get_chat_member(chat_id, user_id)
        if not ((admin_check.status == "administrator") or (admin_check.status == "creator")):
            await query.answer("Nice Try :)", show_alert=True)
            return
