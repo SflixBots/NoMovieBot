@@ -49,7 +49,9 @@ async def movie(client: Sflix, message: Message):
 async def auto_detect_movie(client: Sflix, message: Message):
     if message.text.startswith("#"): return
 
-    text = if len(message.text) >= 2 message.text else ""
+    if len(message.text) >= 2:
+        text = message.text
+    else: text = ""
     search = imdb.search_movie(text, results=1)
     for i in search:
         print(i)
