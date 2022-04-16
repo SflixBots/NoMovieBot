@@ -50,7 +50,7 @@ async def movie(client: Sflix, message: Message):
 async def auto_detect_movie(client: Sflix, message: Message):
     if message.text.startswith("#"): return
     search = await get_poster(message.text)
-    print(f'{search["title']}")
+    print(search['title'])
 
     if message.text == search['title']:
         buttons = [[
