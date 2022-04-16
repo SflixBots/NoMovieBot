@@ -8,9 +8,11 @@ user = {"User-Agent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) App
 
 async def get_title(query):
     try:
-        url = f'http://www.omdbapi.com/?apikey={API_KEY}&t={query}'
+        url = f'http://www.omdbapi.com/?apikey={API_KEY}&t={text}'
         resp = requests.get(url, headers=user).json()
         title = resp['Title']
     except Exception as e:
         print(e)
+    except KeyError:
+        return
     return title
