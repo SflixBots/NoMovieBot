@@ -1,5 +1,4 @@
 from time import time
-from imdb import IMDb
 from asyncio import sleep
 
 from Bot import Sflix, script
