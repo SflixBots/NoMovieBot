@@ -49,24 +49,23 @@ async def movie(client: Sflix, message: Message):
 async def auto_detect_movie(client: Sflix, message: Message):
     if message.text.startswith("#"): return
     search = imdb.search_movie(message.text, results=1)
-    for i in search:
-        print(search)
+    print(search)
 
-        if message.text == search:
-            buttons = [[
-                InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
-                ],[
-                InlineKeyboardButton("Kick 🗑️", callback_data="movie.kick")
-                ],[
-                InlineKeyboardButton("Ignore ✨", callback_data="movie.ignore")
-            ]]
-            reply_markup = InlineKeyboardMarkup(buttons)
-            await message.reply_text(
-                text = script.MOVIE_TXT.format(message.from_user.mention),
-                reply_markup = reply_markup
-            )
-        else:
-            return
+    if message.text == search:
+        buttons = [[
+            InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
+            ],[
+            InlineKeyboardButton("Kick 🗑️", callback_data="movie.kick")
+            ],[
+             InlineKeyboardButton("Ignore ✨", callback_data="movie.ignore")
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await message.reply_text(
+            text = script.MOVIE_TXT.format(message.from_user.mention),
+            reply_markup = reply_markup
+        )
+    else:
+        return
 
 @Sflix.on_callback_query(filters.regex("^movie."))
 async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
