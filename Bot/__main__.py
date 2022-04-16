@@ -2,7 +2,7 @@ from time import time
 from imdb import IMDb
 from asyncio import sleep
 
-from Bot.utils get_poster
+from Bot.utils import get_poster
 from Bot import Sflix, script
 
 from pyrogram import filters
