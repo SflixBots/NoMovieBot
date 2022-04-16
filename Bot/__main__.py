@@ -1,4 +1,5 @@
 from time import time
+from imdb import IMDb
 from asyncio import sleep
 
 from Bot import Sflix, script
@@ -11,6 +12,8 @@ from pyrogram.types import (
     InlineKeyboardMarkup
 )
 from pyrogram.errors import RPCError
+
+imdb = IMDb()
 
 @Sflix.on_message(filters.command("start") & filters.private)
 async def start(client: Sflix, message: Message):
@@ -45,6 +48,9 @@ async def movie(client: Sflix, message: Message):
 @Sflix.on_message(filters.group & filters.text & ~filters.edited & filters.incoming)
 async def auto_detect_movie(client: Sflix, message: Message):
     if message.text.startswith("#"): return
+    search = imdb.search_movie(message.text)
+    for i in search
+    print(i)
     buttons = [[
         InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
         ],[
