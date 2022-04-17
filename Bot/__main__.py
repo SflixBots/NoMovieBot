@@ -14,7 +14,15 @@ from pyrogram.errors import RPCError
 
 @Sflix.on_message(filters.command("start") & filters.private)
 async def start(client: Sflix, message: Message):
-    await message.reply_text("Hi")
+    buttons = [[
+        InlineKeyboardButton("➕ Add me to your Group ➕", url="")
+    ]]
+    reply_markup = InlineKeyboardMarkup(buttons)
+
+    await message.reply_text(
+        text = script.START_TXT,
+        reply_markup = reply_markup
+    )
 
 @Sflix.on_message(filters.regex("#movie") & filters.group)
 async def movie(client: Sflix, message: Message):
@@ -24,6 +32,7 @@ async def movie(client: Sflix, message: Message):
         if ((admin_check.status == "administrator") or (admin_check.status == "creator")):
             await message.reply_text("**This user is admin in this chat.**")
             return
+
         reply_id = reply_to.message_id
         buttons = [[
             InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
@@ -46,7 +55,7 @@ async def movie(client: Sflix, message: Message):
 async def auto_detect_movie(client: Sflix, message: Message):
     if message.text.startswith("#"): return
 
-    if message.text == title:
+    if message.text >= 2:
         buttons = [[
             InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
             ],[
