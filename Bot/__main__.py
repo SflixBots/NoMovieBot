@@ -12,15 +12,24 @@ from pyrogram.types import (
 )
 from pyrogram.errors import RPCError
 
+bot_start_time = time.time()
+
 @Sflix.on_message(filters.command("start") & filters.private)
 async def start(client: Sflix, message: Message):
+    bot = await client.get_me()
     buttons = [[
-        InlineKeyboardButton("➕ Add me to your Group ➕", url="")
+        InlineKeyboardButton("➕ Add me to your Group ➕", url=f"http://t.me/{bot.username}?startgroup=true")
+        ],[
+        InlineKeyboardButton("My Updates", url="https://t.me/SflixBots"),
+        InlineKeyboardButton("Support Chat ", url="https://t.me/SflixBots_chat")
+        ],[
+        InlineKeyboardButton("Help Commands ", callback_data="call.help"),
+        InlineKeyboardButton("About & Info", callback_data="call.about")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
 
     await message.reply_text(
-        text = script.START_TXT,
+        text = script.START_TXT.format(mention = message.from_user.mention, uptime = time.strftime("%Hh %Mm %Ss", time.gmtime(time.time() - bot_start_time))),
         reply_markup = reply_markup
     )
 
@@ -35,11 +44,11 @@ async def movie(client: Sflix, message: Message):
 
         reply_id = reply_to.message_id
         buttons = [[
-            InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
+            InlineKeyboardButton("Leave 🧑‍🦯", callback_data="call.leave")
             ],[
-            InlineKeyboardButton("Kick 🗑️", callback_data="movie.kick")
+            InlineKeyboardButton("Kick 🗑️", callback_data="call.kick")
             ],[
-            InlineKeyboardButton("Ignore ✨", callback_data="movie.ignore")
+            InlineKeyboardButton("Ignore ✨", callback_data="call.ignore")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await message.delete()
@@ -57,11 +66,11 @@ async def auto_detect_movie(client: Sflix, message: Message):
 
     if message.text >= 2:
         buttons = [[
-            InlineKeyboardButton("Leave 🧑‍🦯", callback_data="movie.leave")
+            InlineKeyboardButton("Leave 🧑‍🦯", callback_data="call.leave")
             ],[
-            InlineKeyboardButton("Kick 🗑️", callback_data="movie.kick")
+            InlineKeyboardButton("Kick 🗑️", callback_data="call.kick")
             ],[
-            InlineKeyboardButton("Ignore ✨", callback_data="movie.ignore")
+            InlineKeyboardButton("Ignore ✨", callback_data="call.ignore")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await message.reply_text(
@@ -71,7 +80,7 @@ async def auto_detect_movie(client: Sflix, message: Message):
     else:
         return
 
-@Sflix.on_callback_query(filters.regex("^movie."))
+@Sflix.on_callback_query(filters.regex("^call"))
 async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
     args = query.data.split(".")
     action = args[1]
@@ -133,3 +142,21 @@ async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
 
        await query.message.delete()
        await query.message.reply_to_message.delete()
+
+    if action == "start":
+        await query.message.delete()
+        await query.message.reply_text(
+            text = script.START_TXT
+        )
+
+    if action == "help":
+        await query.message.delete()
+        await query.message.reply_text(
+            script.HELP_TXT
+        )
+
+    if action == "about":
+        await query.message.delete()
+        await query.message.reply_text(
+            script.ABOUT_TXT
+        )
