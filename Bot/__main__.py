@@ -2,7 +2,6 @@ from time import time
 from asyncio import sleep
 
 from Bot import Sflix, script
-from Bot.utils import get_title
 
 from pyrogram import filters
 from pyrogram.types import (
@@ -46,8 +45,6 @@ async def movie(client: Sflix, message: Message):
 @Sflix.on_message(filters.group & filters.text & ~filters.edited & filters.incoming)
 async def auto_detect_movie(client: Sflix, message: Message):
     if message.text.startswith("#"): return
-    title = await get_title(message.text)
-    print(title)
 
     if message.text == title:
         buttons = [[
@@ -83,9 +80,11 @@ async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
                 await query.message.chat.ban_member(user_id, until_date=int(time() + 45))
                 await sleep(3)
                 await query.message.chat.unban_member(user_id)
+
                 await query.message.edit_text(f"**User:** {user_name} **has left this group.**")
                 await sleep(25)
                 await query.message.delete()
+
             except RPCError as err:
                 await query.message.edit_text(
                     f"🛑 Failed to Kick\n<b>Error:</b>\n</code>{err}</code>"
@@ -100,13 +99,16 @@ async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
         if not ((admin_check.status == "administrator") or (admin_check.status == "creator")):
             await query.answer("Nice Try :)", show_alert=True)
             return
+
         try:
             await query.message.chat.ban_member(user_id, until_date=int(time() + 45))
             await sleep(3)
             await query.message.chat.unban_member(user_id)
+
             await query.message.edit_text(f"**User:** {user_name} **has kicked from this group.**")
             await sleep(25)
             await query.message.delete()
+
         except RPCError as err:
             await query.message.edit_text(
                 f"🛑 Failed to Kick\n<b>Error:</b>\n</code>{err}</code>"
@@ -119,5 +121,6 @@ async def who_ask_for_movie(client: Sflix, query: CallbackQuery):
        if not ((admin_check.status == "administrator") or (admin_check.status == "creator")):
            await query.answer("Nice Try :)", show_alert=True)
            return
+
        await query.message.delete()
        await query.message.reply_to_message.delete()
