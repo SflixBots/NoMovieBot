@@ -64,7 +64,7 @@ async def movie(client: Sflix, message: Message):
 async def auto_detect_movie(client: Sflix, message: Message):
     if message.text.startswith("#"): return
 
-    if message.text >= 2:
+    if message.text == message.text:
         buttons = [[
             InlineKeyboardButton("Leave 🧑‍🦯", callback_data="call.leave")
             ],[
