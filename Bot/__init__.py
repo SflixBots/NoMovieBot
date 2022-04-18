@@ -9,7 +9,6 @@ class Config:
     API_HASH = environ['API_HASH']
     BOT_TOKEN = environ['BOT_TOKEN']
     WORKERS = int(100)
-    OMDB_KEY = environ.get("OMDB_KEY", "")
 
 class script:
     START_TXT = """Hey There I'm {bot.first_name}
