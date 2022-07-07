@@ -12,7 +12,7 @@ from pyrogram.types import (
 )
 from pyrogram.errors import RPCError
 
-bot_start_time = time.time()
+bot_start_time = time()
 
 @Sflix.on_message(filters.command("start") & filters.private)
 async def start(client: Sflix, message: Message):
